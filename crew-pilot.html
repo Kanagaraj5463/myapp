@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome | SnapStyles</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 1000px;
+        width: 100%;
+        padding: 40px;
+        text-align: center;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+        animation: slideDown 1s ease;
+    }
+
+    p.subtitle {
+        font-size: 16px;
+        color: #ddd;
+        margin-bottom: 50px;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 35px;
+        text-align: left;
+        backdrop-filter: blur(12px);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .card:hover::before {
+        opacity: 1;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .card h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #e0e0e0;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 30px;
+        background: #fff;
+        color: #111;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background: #ffd369;
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Welcome Crew & Pilots 🚀</h1>
+    <p class="subtitle">
+        You’re now part of the SnapStyles growth ecosystem.
+        Choose your path and start creating impact.
+    </p>
+
+    <div class="cards">
+        <!-- Style Crew -->
+        <div class="card">
+            <h2>🤝 Style Crew</h2>
+            <p>
+                Support creators, onboard new talent, and earn commissions.
+                Style Crew members help power growth while building their own income streams.
+            </p>
+            <a href="#" class="btn">Go to Crew Dashboard</a>
+        </div>
+
+        <!-- Style Pilot -->
+        <div class="card">
+            <h2>🚀 Style Pilot</h2>
+            <p>
+                Lead and manage creators professionally. Handle brand deals,
+                campaigns, and growth strategies at scale.
+            </p>
+            <a href="#" class="btn">Go to Pilot Dashboard</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
