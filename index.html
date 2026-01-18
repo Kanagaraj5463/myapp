@@ -630,7 +630,7 @@ Message:<br>
         </a>
       </p>
       <p class="trust-line">
-        🔒 Privacy-first • 🚀 Creator-focused • 🇮🇳 Made in India
+        🔒 Privacy first • 🚀 Creator focused • Made in 🇮🇳
       </p>
     </div>
   </footer>
@@ -739,6 +739,191 @@ body {font-family: Arial, Helvetica, sans-serif;}
       }
   
 </style>
+
+<style>
+  /* ===== SERVICE SECTION GLITTER ===== */
+  .service_section {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* glitter particles */
+  .service_section::before,
+  .service_section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,215,0,0.8), transparent),
+      radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,215,0,0.7), transparent);
+    animation: glitterMove 10s linear infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes glitterMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+  }
+  
+  /* ===== ROTATING IMAGE CIRCLE ===== */
+  .service_section .img-box {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+  }
+  
+  .service_section .img-box img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: rotateSlow 18s linear infinite;
+    box-shadow: 0 0 20px rgba(255,215,0,0.6);
+  }
+  
+  /* slow continuous rotation */
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* ===== HOVER MAGIC ===== */
+  .service_section .box:hover img {
+    animation-duration: 6s;
+    box-shadow: 0 0 35px rgba(255,108,60,0.9);
+  }
+  
+  .service_section .box:hover {
+    transform: translateY(-14px) scale(1.04);
+    transition: all .4s ease;
+  }
+  </style>
+  <style>
+    /* soft pulsing ring */
+    .service_section .img-box::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255,215,0,0.6);
+      animation: spinRing 14s linear infinite;
+    }
+    
+    @keyframes spinRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+    </style>
+    <style>
+      /* ===== DARK PREMIUM HERO TEXT ===== */
+      .detail-box {
+        max-width: 560px;
+      }
+      
+      /* HEADLINE: black ↔ deep red animation */
+      .detail-box h1 {
+        font-size: clamp(2.6rem, 5vw, 3.3rem);
+        font-weight: 900;
+        letter-spacing: -0.6px;
+        line-height: 1.1;
+        color: #111;
+        position: relative;
+        animation: darkPulse 4s ease-in-out infinite;
+      }
+      
+      /* red underline */
+      .detail-box h1::after {
+        content: "";
+        display: block;
+        width: 72px;
+        height: 4px;
+        margin-top: 14px;
+        background: linear-gradient(90deg, #6b0f1a, #b11226);
+        border-radius: 2px;
+      }
+      
+      /* PARAGRAPH subtle dark fade */
+      .detail-box p {
+        margin-top: 22px;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: #333;
+        animation: textDarkFade 1.4s ease forwards;
+      }
+      
+      /* BUTTON GROUP */
+      .detail-box .btn-box {
+        margin-top: 32px;
+        display: flex;
+        gap: 14px;
+      }
+      
+      /* PRIMARY BUTTON */
+      .detail-box .btn-1 {
+        background: linear-gradient(135deg, #000, #1a1a1a);
+        color: #fff;
+        padding: 14px 34px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all .35s ease;
+      }
+      
+      /* SECONDARY BUTTON */
+      .detail-box .btn-2 {
+        background: transparent;
+        color: #b11226;
+        border: 1.5px solid #b11226;
+        padding: 14px 34px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all .35s ease;
+      }
+      
+      /* HOVER */
+      .detail-box .btn-1:hover {
+        box-shadow: 0 14px 30px rgba(0,0,0,.4);
+        transform: translateY(-3px);
+      }
+      
+      .detail-box .btn-2:hover {
+        background: #b11226;
+        color: #fff;
+        transform: translateY(-3px);
+      }
+      
+      /* ===== ANIMATIONS ===== */
+      
+      /* Black ↔ Red pulse */
+      @keyframes darkPulse {
+        0% {
+          color: #111;
+          text-shadow: none;
+        }
+        50% {
+          color: #b11226;
+          text-shadow: 0 0 18px rgba(177,18,38,0.35);
+        }
+        100% {
+          color: #111;
+          text-shadow: none;
+        }
+      }
+      
+      /* paragraph fade */
+      @keyframes textDarkFade {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      </style>
+      
+      
 </head>
 <body>
 
