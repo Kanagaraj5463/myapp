@@ -1,212 +1,305 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-      <body oncontextmenu="return false">
-    
-    <meta charset="utf-8">
-    <title>Camera</title>
+<meta charset="UTF-8">
+<title>SnapStyles Camera</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  color: #fff;
+  text-align: center;
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+h2 {
+  margin-top: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* ===== CAMERA FRAME ===== */
+.camera-box {
+  position: relative;
+  display: inline-block;
+  padding: 15px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #222, #000);
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+  animation: glowPulse 3s infinite;
+  transition: transform .5s ease;
+}
+
+.camera-box.flip {
+  transform: rotateY(180deg);
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 15px rgba(255,215,0,.3); }
+  50% { box-shadow: 0 0 40px rgba(255,215,0,.7); }
+  100% { box-shadow: 0 0 15px rgba(255,215,0,.3); }
+}
+
+video, canvas {
+  border-radius: 14px;
+  background: #000;
+  width: 90vw;
+  max-width: 600px;
+}
+
+/* mirror selfie */
+.mirror {
+  transform: scaleX(-1);
+}
+
+/* ===== RECORD DOT ===== */
+.record-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  background: red;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 12px red;
+}
+
+.recording .record-dot {
+  opacity: 1;
+  animation: blink 1s infinite;
+}
+
+/* ===== BUTTONS ===== */
+.button, .buttonn {
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 14px 28px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all .3s ease;
+}
+
+.button {
+  background: linear-gradient(135deg, gold, #ffb700);
+  color: #000;
+  box-shadow: 0 0 20px rgba(255,215,0,.6);
+}
+
+.button:hover { transform: scale(1.15); }
+
+.buttonn {
+  background: linear-gradient(135deg, #444, #222);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255,255,255,.2);
+}
+
+.buttonn:hover {
+  background: #666;
+  transform: translateY(-3px);
+}
+
+/* ===== STATUS ===== */
+.status {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #ffd700;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ===== SLIDERS ===== */
+input[type=range] {
+  width: 220px;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  margin-top: 30px;
+  animation: slideUp .8s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
-<body background="https://thumbs.gfycat.com/ClearcutNaturalAnnelid-max-1mb.gif">
-    <style>
-        .button {
-          background-color: #946c04;
-          -webkit-border-radius: 20px;
-          border-radius: 60px;
-          border: none;
-          color: #060b01;
-          cursor: pointer;
-          display: inline-block;
-          font-family: sans-serif;
-          font-size: 150px;
-          padding: 10px 10px;
-          text-align: center;
-          text-decoration: none;
-        }
-        @keyframes glowing {
-          0% {
-            background-color: #1d6e04;
-            box-shadow: 0 1 5px #2ba805;
-          }
-          50% {
-            background-color: #0dae9b;
-            box-shadow: 1 0 20px #37cd09;
-          }
-          100% {
-            background-color: #2ba805;
-            box-shadow: 0 0 5px #2ba805;
-          }
-        }
-        .buttonn {
-            background-color: #c79007;
-            -webkit-border-radius: 20px;
-            border-radius: 60px;
-            border: none;
-            color: #060b01;
-            cursor: pointer;
-            display: inline-block;
-            font-family: sans-serif;
-            font-size: 24px;
-            padding: 10px 15px;
-            text-align: center;
-            text-decoration: none;
-          }
-          @keyframes glowing {
-            0% {
-              background-color: #2ba805;
-              box-shadow: 0 0 5px #2ba805;
-            }
-            50% {
-              background-color: #81f05f;
-              box-shadow: 1 0 20px #37cd09;
-            }
-            100% {
-              background-color: #4be91b;
-              box-shadow: 0 0 5px #2ba805;
-            }
-          }
-        .button {
-          animation: glowing 1600ms infinite;
-        }
-        .buttonn {
-            animation: glowing 11600ms infinite;
-          }
-      </style>
-    <div>
-        <h2 ><center>Smile Please</center></h2>
-        <center>
-            <video id="cameraPreview" width="600" height="400" autoplay></video>
-        </center>
-        <p ><cente>Press the button to start/stop viedo recording<br></center>
-        <p>
-            <center>
-                <br>
-                <br>
-                <br>
-                <br>
-                <button id="stotton" class="buttonn" onclick="stapture();">Please click the buttons to record the viedo</button>
-                <br><br>
-                <button id="startButton" class="button" onclick="startCapture();">Start</button>
-                &nbsp;   
-                &nbsp;   
-                &nbsp;
-                &nbsp;   
-                &nbsp;   
-                &nbsp;
-                &nbsp;   
-                &nbsp;
-                <button id="stopButton" class="button" onclick="stopCapture();">Stop</button>
-            </center>
 
-        </p>
-            
-        </p>
-    </div>
+<body oncontextmenu="return false">
 
-    <div>
-        <br><br><br>
-        <center><button id="stotton" onclick="stapture();"></button></center>
-        <center><canvas id="processingPreview" width="545" height="400"></canvas></center>
-    </div>
+<h2>✨ Smile Please ✨</h2>
 
-    <div>
-        <center><button id="stotton" class="buttonn" onclick="stapture();">Recorded</button></center>
-        <center><h2>Recorded</h2>
-        <video id="recordingPreview" width="600" height="400" autoplay controls></video>
-        <p>
-            <a class="button" id="downloadButton">Download the viedo</a>
-        </p></center>
-    </div>
+<div class="camera-box" id="cameraBox">
+  <span class="record-dot"></span>
+  <video id="cameraPreview" autoplay playsinline></video>
+</div>
 
-    <script>
+<p class="status" id="statusText">Camera Idle</p>
 
-    const ROI_X = 90;
-    const ROI_Y = 80;
-    const ROI_WIDTH = 900;
-    const ROI_HEIGHT = 600;
-    
-    const FPS = 24;
-    
-    let cameraStream = null;
-    let processingStream = null;
-    let mediaRecorder = null;
-    let mediaChunks = null;
-    let processingPreviewIntervalId = null;
+<div class="section">
+  <button class="buttonn" onclick="startCapture()">▶ Start</button>
+  <button class="buttonn" onclick="stopCapture()">⏹ Stop</button>
+  <button class="buttonn" onclick="flipCamera()">🔄 Flip</button>
+</div>
 
-    function processFrame() {
-        let cameraPreview = document.getElementById("cameraPreview");
-        
-        processingPreview
-            .getContext('2d')
-            .drawImage(cameraPreview, ROI_X, ROI_Y, ROI_WIDTH, ROI_HEIGHT, 0, 0, ROI_WIDTH, ROI_HEIGHT);
-    }
-    
-    function generateRecordingPreview() {
-        let mediaBlob = new Blob(mediaChunks, { type: "video/mp4" });
-        let mediaBlobUrl = URL.createObjectURL(mediaBlob);
-        
-        let recordingPreview = document.getElementById("recordingPreview");
-        recordingPreview.src = mediaBlobUrl;
+<!-- LIVE EFFECT CONTROLS -->
+<div class="section">
+  <h3>🎛 Live Effects</h3>
+  Brightness <br><input id="brightness" type="range" min="50" max="150" value="100"><br>
+  Contrast <br><input id="contrast" type="range" min="50" max="150" value="100"><br>
+  Saturation <br><input id="saturation" type="range" min="0" max="200" value="100"><br>
+  Blur <br><input id="blur" type="range" min="0" max="8" value="0">
+</div>
 
-        let downloadButton = document.getElementById("downloadButton");
-        downloadButton.href = mediaBlobUrl;
-        downloadButton.download = "Viedo.webm";
-    }
-        
-    function startCapture() {
-        const constraints = { video: true, audio: false };
-        navigator.mediaDevices.getUserMedia(constraints)
-        .then((stream) => {
-            cameraStream = stream;
-            
-            let processingPreview = document.getElementById("processingPreview");
-            processingStream = processingPreview.captureStream(FPS);
-            
-            mediaRecorder = new MediaRecorder(processingStream);
-            mediaChunks = []
-            
-            mediaRecorder.ondataavailable = function(event) {
-                mediaChunks.push(event.data);
-                if(mediaRecorder.state == "inactive") {
-                    generateRecordingPreview();
-                }
-            };
-            
-            mediaRecorder.start();
-            
-            let cameraPreview = document.getElementById("cameraPreview");
-            cameraPreview.srcObject = stream;
-        
-            processingPreviewIntervalId = setInterval(processFrame, 1000 / FPS);
-        })
-        .catch((err) => {
-            alert("No media device found!");
-        });
-    };
-    
-    function stopCapture() {
-        if(cameraStream != null) {
-            cameraStream.getTracks().forEach(function(track) {
-                track.stop();
-            });
-        }
-        
-        if(processingStream != null) {
-            processingStream.getTracks().forEach(function(track) {
-                track.stop();
-            });
-        }
-        
-        if(mediaRecorder != null) {
-            if(mediaRecorder.state == "recording") {
-                mediaRecorder.stop();
-            }
-        }
-        
-        if(processingPreviewIntervalId != null) {
-            clearInterval(processingPreviewIntervalId);
-            processingPreviewIntervalId = null;
-        }
-    };
-    </script>
+<!-- PRESETS -->
+<div class="section">
+  <button class="buttonn" onclick="setPreset('bright')">☀ Bright</button>
+  <button class="buttonn" onclick="setPreset('cinema')">🎬 Cinema</button>
+  <button class="buttonn" onclick="setPreset('vintage')">📼 Vintage</button>
+  <button class="buttonn" onclick="setPreset('bw')">⚫ B&W</button>
+</div>
+
+<div class="section">
+  <canvas id="processingPreview" width="600" height="400"></canvas>
+</div>
+
+<div class="section">
+  <h2>🎬 Recorded Preview</h2>
+  <video id="recordingPreview" controls></video><br>
+  <a class="button" id="downloadButton">⬇ Download</a>
+</div>
+
+<script>
+const FPS = 24;
+let cameraStream, processingStream, mediaRecorder, mediaChunks = [], intervalId;
+let useFrontCamera = true;
+
+/* ===== FRAME PROCESS ===== */
+function processFrame() {
+  const ctx = processingPreview.getContext("2d");
+
+  ctx.filter = `
+    brightness(${brightness.value}%)
+    contrast(${contrast.value}%)
+    saturate(${saturation.value}%)
+    blur(${blur.value}px)
+  `;
+
+  ctx.save();
+  if (useFrontCamera) {
+    ctx.scale(-1, 1);
+    ctx.drawImage(cameraPreview, -processingPreview.width, 0, processingPreview.width, processingPreview.height);
+  } else {
+    ctx.drawImage(cameraPreview, 0, 0, processingPreview.width, processingPreview.height);
+  }
+  ctx.restore();
+}
+
+/* ===== CAMERA ===== */
+async function startCamera() {
+  if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
+
+  cameraStream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: useFrontCamera ? "user" : "environment" },
+    audio: false
+  });
+
+  cameraPreview.srcObject = cameraStream;
+  cameraPreview.classList.toggle("mirror", useFrontCamera);
+}
+
+/* ===== RECORD ===== */
+async function startCapture() {
+  statusText.innerText = "🔴 Recording...";
+  cameraBox.classList.add("recording");
+
+  await startCamera();
+
+  processingStream = processingPreview.captureStream(FPS);
+  mediaRecorder = new MediaRecorder(processingStream);
+  mediaChunks = [];
+
+  mediaRecorder.ondataavailable = e => mediaChunks.push(e.data);
+  mediaRecorder.onstop = generateRecordingPreview;
+
+  mediaRecorder.start();
+  intervalId = setInterval(processFrame, 1000 / FPS);
+}
+
+/* ===== STOP ===== */
+function stopCapture() {
+  statusText.innerText = "⏹ Stopped";
+  cameraBox.classList.remove("recording");
+
+  clearInterval(intervalId);
+  mediaRecorder?.stop();
+  cameraStream?.getTracks().forEach(t => t.stop());
+}
+
+/* ===== FLIP CAMERA ===== */
+async function flipCamera() {
+  useFrontCamera = !useFrontCamera;
+  cameraBox.classList.add("flip");
+
+  setTimeout(async () => {
+    await startCamera();
+    cameraBox.classList.remove("flip");
+  }, 400);
+}
+
+/* ===== PRESETS ===== */
+function setPreset(type) {
+  if (type === "bright") {
+    brightness.value = 130;
+    contrast.value = 110;
+    saturation.value = 140;
+    blur.value = 0;
+  }
+  if (type === "cinema") {
+    brightness.value = 105;
+    contrast.value = 125;
+    saturation.value = 115;
+    blur.value = 1;
+  }
+  if (type === "vintage") {
+    brightness.value = 110;
+    contrast.value = 90;
+    saturation.value = 80;
+    blur.value = 0;
+  }
+  if (type === "bw") {
+    brightness.value = 110;
+    contrast.value = 130;
+    saturation.value = 0;
+    blur.value = 0;
+  }
+}
+
+/* ===== PREVIEW ===== */
+function generateRecordingPreview() {
+  const blob = new Blob(mediaChunks, { type: "video/webm" });
+  const url = URL.createObjectURL(blob);
+  recordingPreview.src = url;
+  downloadButton.href = url;
+  downloadButton.download = "snapstyles-video.webm";
+}
+</script>
+
 </body>
 </html>
